@@ -1,0 +1,3549 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "2.0.0",
+    "title": "Chess.com API reference",
+    "contact": {
+      "name": "Chess.com API",
+      "url": "https://www.chess.com/news/view/published-data-api",
+      "email": "contact@chess.com"
+    },
+    "description": "# Introduction `npx openapi-generator-cli validate -i .\\chess-com-api.json`"
+  },
+  "servers": [
+    {
+      "url": "https://api.chess.com/pub",
+      "description": "Chess.com Public Api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Player",
+      "description": "Read account information and preferences."
+    },
+    {
+      "name": "Games",
+      "description": "Read game information."
+    },
+    {
+      "name": "Clubs",
+      "description": "Read club information."
+    },
+    {
+      "name": "Titled",
+      "description": "Read titled player information."
+    },
+    {
+      "name": "Tournament",
+      "description": "Read Tournament information."
+    },
+    {
+      "name": "Match",
+      "description": "Read Match information."
+    },
+    {
+      "name": "Country",
+      "description": "Read Country information."
+    },
+    {
+      "name": "Puzzle",
+      "description": "Read Puzzle information."
+    },
+    {
+      "name": "Streamers",
+      "description": "Read Streamers information."
+    },
+    {
+      "name": "Leaderboards",
+      "description": "Read Leaderboard information."
+    }
+  ],
+  "components": {
+    "schemas": {
+      "GameResults": {
+        "type": "string",
+        "enum": [
+          "win",
+          "checkmated",
+          "agreed",
+          "repetition",
+          "timeout",
+          "resigned",
+          "stalemate",
+          "lose",
+          "insufficient",
+          "50move",
+          "abandoned",
+          "kingofthehill",
+          "threecheck",
+          "timevsinsufficient",
+          "bughousepartnerlose"
+        ],
+        "description": "result of game"
+      },
+      "MatchBoardPlayerDetails": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "the username"
+          },
+          "rating": {
+            "type": "integer",
+            "description": "the player's rating after the game finished"
+          },
+          "result": {
+            "$ref": "#/components/schemas/GameResults"
+          },
+          "@id": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of this player's profile"
+          },
+          "team": {
+            "type": "string",
+            "format": "uri",
+            "description": "url to club's profile"
+          }
+        }
+      },
+      "Puzzle": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "the title of the daily puzzle"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "url to daily puzzle in chess.com"
+          },
+          "publish_time": {
+            "type": "integer",
+            "description": "the date of the published puzzle"
+          },
+          "fen": {
+            "type": "string",
+            "description": "the FEN of the published puzzle"
+          },
+          "pgn": {
+            "type": "string",
+            "description": "the PGN of the published puzzle, and yes, we know that thing you have noticed"
+          },
+          "image": {
+            "type": "string",
+            "format": "uri",
+            "description": "the link to the image"
+          }
+        },
+        "example": {
+          "title": "Around the World in Five Moves",
+          "url": "https://www.chess.com/forum/view/daily-puzzles/2-2-2024-around-the-world-in-five-moves",
+          "publish_time": 1706860800,
+          "fen": "q6r/1bR1p1k1/1B3bp1/1p3p2/1P3Pnr/1B1PN1N1/3RQ1P1/6K1 b - - 0 1",
+          "pgn": "[Result \"*\"]\r\n[FEN \"q6r/1bR1p1k1/1B3bp1/1p3p2/1P3Pnr/1B1PN1N1/3RQ1P1/6K1 b - - 0 1\"]\r\n\r\n1... Rh1+ 2. Nxh1 Rxh1+ 3. Kxh1 Qh8+ 4. Kg1 Qh2+ 5. Kf1 Qh1# *",
+          "image": "https://www.chess.com/dynboard?fen=q6r/1bR1p1k1/1B3bp1/1p3p2/1P3Pnr/1B1PN1N1/3RQ1P1/6K1%20b%20-%20-%200%201&size=2"
+        }
+      },
+      "Leaderboard": {
+        "type": "object",
+        "properties": {
+          "player_id": {
+            "type": "integer"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "@id": {
+            "type": "string",
+            "format": "uri"
+          },
+          "username": {
+            "type": "string"
+          },
+          "score": {
+            "type": "integer"
+          },
+          "rank": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 50
+          },
+          "country": {
+            "type": "string",
+            "format": "uri"
+          },
+          "title": {
+            "type": "string",
+            "enum": [
+              "GM",
+              "FM"
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "avatar": {
+            "type": "string",
+            "format": "uri"
+          },
+          "trend_score": {
+            "type": "object",
+            "properties": {
+              "direction": {
+                "type": "integer"
+              },
+              "delta": {
+                "type": "integer"
+              }
+            }
+          },
+          "trend_rank": {
+            "type": "object",
+            "properties": {
+              "direction": {
+                "type": "integer"
+              },
+              "delta": {
+                "type": "integer"
+              }
+            }
+          },
+          "flair_code": {
+            "type": "string"
+          },
+          "win_count": {
+            "type": "integer"
+          },
+          "loss_count": {
+            "type": "integer"
+          },
+          "draw_count": {
+            "type": "integer"
+          }
+        },
+        "example": {
+          "player_id": 2305524,
+          "@id": "https://api.chess.com/pub/player/zgorl",
+          "url": "https://www.chess.com/member/Zgorl",
+          "username": "Zgorl",
+          "score": 2571,
+          "rank": 1,
+          "country": "https://api.chess.com/pub/country/NL",
+          "title": "FM",
+          "name": "Rob Schoorl",
+          "status": "premium",
+          "avatar": "https://images.chesscomfiles.com/uploads/v1/user/2305524.5341b605.200x200o.67a89f6c51b4.jpeg",
+          "trend_score": {
+            "direction": 0,
+            "delta": 0
+          },
+          "trend_rank": {
+            "direction": 0,
+            "delta": 0
+          },
+          "flair_code": "white_bishop",
+          "win_count": 494,
+          "loss_count": 206,
+          "draw_count": 61
+        }
+      },
+      "PlayerProfile": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "type": "string",
+            "description": "the location of this profile (always self-referencing)",
+            "example": "https://images.chesscomfiles.com/uploads/v1/user/41.5434c4ff.200x200o.5b102889d835.jpeg"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "the chess.com user's profile page (the username is displayed with the original letter case)",
+            "example": "https://www.chess.com/member/erik"
+          },
+          "username": {
+            "type": "string",
+            "description": "the username of this player",
+            "example": "erik"
+          },
+          "player_id": {
+            "type": "integer",
+            "description": "the non-changing Chess.com ID of this player",
+            "example": 41
+          },
+          "title": {
+            "type": "string",
+            "description": "abbreviation of chess title, if any"
+          },
+          "status": {
+            "type": "string",
+            "default": "basic",
+            "enum": [
+              "closed",
+              "closed:fair_play_violations",
+              "basic",
+              "premium",
+              "mod",
+              "staff"
+            ],
+            "description": "account status",
+            "example": "staff"
+          },
+          "name": {
+            "type": "string",
+            "description": "the personal first and last name",
+            "example": "Erik"
+          },
+          "avatar": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of a 200x200 image",
+            "example": "https://images.chesscomfiles.com/uploads/v1/user/41.5434c4ff.200x200o.5b102889d835.jpeg"
+          },
+          "location": {
+            "type": "string",
+            "description": "the city or location",
+            "example": "Bay Area, CA"
+          },
+          "country": {
+            "type": "string",
+            "format": "uri",
+            "description": "API location of this player's country's profile",
+            "example": "https://api.chess.com/pub/country/US"
+          },
+          "joined": {
+            "type": "integer",
+            "description": "timestamp of registration on Chess.com",
+            "example": 1178556600
+          },
+          "last_online": {
+            "type": "integer",
+            "description": "timestamp of the most recent login",
+            "example": 1706959847
+          },
+          "followers": {
+            "type": "integer",
+            "description": "the number of players tracking this player's activity",
+            "example": 6750
+          },
+          "is_streamer": {
+            "type": "boolean",
+            "description": "if the member is a Chess.com streamer",
+            "example": false
+          },
+          "twitch_url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Twitch.tv URL"
+          },
+          "fide": {
+            "type": "integer",
+            "description": "FIDE rating"
+          },
+          "verified": {
+            "type": "boolean",
+            "description": "Is Verified",
+            "example": false
+          },
+          "league": {
+            "type": "string",
+            "example": "Silver"
+          }
+        }
+      },
+      "ChessStatsWithTournament": {
+        "type": "object",
+        "properties": {
+          "last": {
+            "type": "object",
+            "properties": {
+              "rating": {
+                "type": "integer",
+                "example": 1501
+              },
+              "date": {
+                "type": "integer",
+                "example": 1706924351
+              },
+              "rd": {
+                "type": "integer",
+                "example": 23
+              }
+            }
+          },
+          "best": {
+            "type": "object",
+            "properties": {
+              "rating": {
+                "type": "integer",
+                "example": 2065
+              },
+              "date": {
+                "type": "integer",
+                "example": 1256228875
+              },
+              "game": {
+                "type": "string",
+                "format": "uri",
+                "example": "https://www.chess.com/game/daily/26087202"
+              }
+            }
+          },
+          "record": {
+            "type": "object",
+            "properties": {
+              "win": {
+                "type": "integer",
+                "example": 2829
+              },
+              "loss": {
+                "type": "integer",
+                "example": 1825
+              },
+              "draw": {
+                "type": "integer",
+                "example": 332
+              },
+              "time_per_move": {
+                "type": "integer",
+                "example": 13526
+              },
+              "timeout_percent": {
+                "type": "integer",
+                "example": 0
+              }
+            }
+          },
+          "tournament": {
+            "type": "object",
+            "properties": {
+              "points": {
+                "type": "integer",
+                "example": 0
+              },
+              "withdraw": {
+                "type": "integer",
+                "example": 1
+              },
+              "count": {
+                "type": "integer",
+                "example": 1
+              },
+              "highest_finish": {
+                "type": "integer",
+                "example": 1
+              }
+            }
+          }
+        }
+      },
+      "ChessStats": {
+        "type": "object",
+        "properties": {
+          "last": {
+            "type": "object",
+            "properties": {
+              "rating": {
+                "type": "integer",
+                "example": 1904
+              },
+              "date": {
+                "type": "integer",
+                "example": 1678009742
+              },
+              "rd": {
+                "type": "integer",
+                "example": 80
+              }
+            }
+          },
+          "best": {
+            "type": "object",
+            "properties": {
+              "rating": {
+                "type": "integer",
+                "example": 1904
+              },
+              "date": {
+                "type": "integer",
+                "example": 1647475349
+              },
+              "game": {
+                "type": "string",
+                "format": "uri",
+                "example": "https://www.chess.com/game/live/41213397731"
+              }
+            }
+          },
+          "record": {
+            "type": "object",
+            "properties": {
+              "win": {
+                "type": "integer",
+                "example": 27
+              },
+              "loss": {
+                "type": "integer",
+                "example": 11
+              },
+              "draw": {
+                "type": "integer",
+                "example": 1
+              }
+            }
+          }
+        }
+      },
+      "ChessGame": {
+        "type": "object",
+        "properties": {
+          "white": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the white player's profile",
+            "example": "https://api.chess.com/pub/player/thenewsatoshi"
+          },
+          "black": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of the black player's profile",
+            "example": "https://api.chess.com/pub/player/erik"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of this game",
+            "example": "https://www.chess.com/game/daily/541556759"
+          },
+          "fen": {
+            "type": "string",
+            "description": "current FEN",
+            "example": "3q1rk1/pb2ppbp/1p1p1np1/8/3N4/1PP1B2P/2P1QPP1/3R1RK1 w - - 2 17"
+          },
+          "pgn": {
+            "type": "string",
+            "description": "current PGN",
+            "example": "[Event \"Let's Play!\"]\n[Site \"Chess.com\"]\n..."
+          },
+          "turn": {
+            "type": "string",
+            "enum": [
+              "white",
+              "black"
+            ],
+            "description": "player to move",
+            "example": "white"
+          },
+          "move_by": {
+            "type": "integer",
+            "description": "timestamp of when the next move must be made this is \"0\" if the player-to-move is on vacation",
+            "example": 0
+          },
+          "draw_offer": {
+            "type": "string",
+            "enum": [
+              "white",
+              "black"
+            ],
+            "description": "player who has made a draw offer"
+          },
+          "last_activity": {
+            "type": "integer",
+            "description": "timestamp of the last activity on the game",
+            "example": 1706360124
+          },
+          "start_time": {
+            "type": "integer",
+            "description": "timestamp of the game start (Daily Chess only)",
+            "example": 1689686162
+          },
+          "time_control": {
+            "type": "string",
+            "description": "PGN-compliant time control",
+            "example": "1/1209600"
+          },
+          "time_class": {
+            "type": "string",
+            "description": "time-per-move grouping, used for ratings",
+            "example": "daily"
+          },
+          "rules": {
+            "type": "string",
+            "description": "game variant information (e.g., \"chess960\")",
+            "example": "chess"
+          },
+          "tournament": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL pointing to tournament (if available)"
+          },
+          "match": {
+            "type": "string",
+            "description": "URL pointing to team match (if available)"
+          }
+        }
+      },
+      "ToMoveItem": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of this game",
+            "example": "https://www.chess.com/game/daily/611885263"
+          },
+          "move_by": {
+            "type": "integer",
+            "description": "timestamp of the when the move must be made by this is \"0\" if it is not this player's turn",
+            "example": 1707011034
+          },
+          "draw_offer": {
+            "type": "boolean",
+            "description": "this player has received a draw offer"
+          },
+          "last_activity": {
+            "type": "integer",
+            "description": "timestamp of the last activity on the game",
+            "example": 1706924634
+          }
+        }
+      },
+      "FinishedChessGame": {
+        "type": "object",
+        "properties": {
+          "white": {
+            "type": "object",
+            "properties": {
+              "username": {
+                "type": "string",
+                "description": "the username",
+                "example": "erik"
+              },
+              "rating": {
+                "type": "integer",
+                "description": "the player's rating after the game finished",
+                "example": 1699
+              },
+              "result": {
+                "type": "string",
+                "description": "see \"Game results codes\" section",
+                "example": "win"
+              },
+              "@id": {
+                "type": "string",
+                "format": "uri",
+                "description": "URL of this player's profile",
+                "example": "https://api.chess.com/pub/player/erik"
+              },
+              "uuid": {
+                "type": "string",
+                "format": "uuid",
+                "description": "uuid of this player's profile",
+                "example": "fe696c00-fcba-11db-8029-000000000000"
+              }
+            },
+            "description": "details of the white-piece player"
+          },
+          "black": {
+            "type": "object",
+            "properties": {
+              "username": {
+                "type": "string",
+                "description": "the username",
+                "example": "bartekbartek45455"
+              },
+              "rating": {
+                "type": "integer",
+                "description": "the player's rating after the game finished",
+                "example": 1675
+              },
+              "result": {
+                "type": "string",
+                "description": "see \"Game results codes\" section",
+                "example": "timeout"
+              },
+              "@id": {
+                "type": "string",
+                "format": "uri",
+                "description": "URL of this player's profile",
+                "example": "https://api.chess.com/pub/player/bartekbartek45455"
+              },
+              "uuid": {
+                "type": "string",
+                "format": "uuid",
+                "description": "uuid of this player's profile",
+                "example": "a318205e-6116-11ed-af24-75e0b4cf3d91"
+              }
+            },
+            "description": "details of the black-piece player"
+          },
+          "accuracies": {
+            "type": "object",
+            "properties": {
+              "white": {
+                "type": "float",
+                "example": 85.24
+              },
+              "black": {
+                "type": "float",
+                "example": 74.33
+              }
+            },
+            "description": "player's accuracies, if they were previously calculated"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of this game",
+            "example": "https://www.chess.com/game/live/97878070965"
+          },
+          "fen": {
+            "type": "string",
+            "description": "final FEN",
+            "example": "r2q1r2/pp3kp1/5p2/3N2nQ/8/6P1/PPP5/2KR3R b - -"
+          },
+          "pgn": {
+            "type": "string",
+            "description": "final PGN",
+            "example": "[Event \"Live Chess\"]\n[Site \"Chess.com\"]\n..."
+          },
+          "start_time": {
+            "type": "integer",
+            "description": "timestamp of the game start (Daily Chess only)"
+          },
+          "end_time": {
+            "type": "integer",
+            "description": "timestamp of the game end",
+            "example": 1704139243
+          },
+          "time_control": {
+            "type": "string",
+            "description": "PGN-compliant time control",
+            "example": "60+1"
+          },
+          "rules": {
+            "type": "string",
+            "description": "game variant information (e.g., \"chess960\")",
+            "example": "chess"
+          },
+          "eco": {
+            "type": "string",
+            "description": "URL pointing to ECO opening (if available)"
+          },
+          "tournament": {
+            "type": "string",
+            "description": "URL pointing to tournament (if available)"
+          },
+          "match": {
+            "type": "string",
+            "description": "URL pointing to team match (if available)"
+          }
+        }
+      },
+      "PlayerClub": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of Club endpoint",
+            "example": "https://www.chess.com/club/open-discussion"
+          },
+          "name": {
+            "type": "string",
+            "description": "Club's name",
+            "example": "Open Discussion"
+          },
+          "last_activity": {
+            "type": "integer",
+            "description": "timestamp of last activity",
+            "example": 1626902692
+          },
+          "icon": {
+            "type": "string",
+            "format": "uri",
+            "description": "Club's icon url",
+            "example": "https://images.chesscomfiles.com/uploads/v1/group/3541.45d6eb2c.50x50o.af307b09ebe7.png"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Club's url",
+            "example": "https://www.chess.com/club/open-discussion"
+          },
+          "joined": {
+            "type": "integer",
+            "description": "Timestamp of when player joined the Club",
+            "example": 1468775412
+          }
+        }
+      },
+      "SingleClub": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "type": "string",
+            "format": "uri",
+            "description": "the location of this profile (always self-referencing)",
+            "example": "https://api.chess.com/pub/club/chess-com-developer-community"
+          },
+          "name": {
+            "type": "string",
+            "description": "the human-readable name of this club",
+            "example": "Chess.com Developer Community"
+          },
+          "club_id": {
+            "type": "integer",
+            "description": "the non-changing Chess.com ID of this club",
+            "example": 57796
+          },
+          "icon": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of a 200x200 image",
+            "example": "https://images.chesscomfiles.com/uploads/v1/group/57796.67ee0038.50x50o.585842f67281.png"
+          },
+          "country": {
+            "type": "string",
+            "format": "uri",
+            "description": "location of this club's country profile",
+            "example": "https://api.chess.com/pub/country/XX"
+          },
+          "average_daily_rating": {
+            "type": "integer",
+            "description": "average daily rating",
+            "example": 952
+          },
+          "members_count": {
+            "type": "integer",
+            "description": "total members count",
+            "example": 12314
+          },
+          "created": {
+            "type": "integer",
+            "description": "timestamp of creation on Chess.com",
+            "example": 1500301978
+          },
+          "last_activity": {
+            "type": "integer",
+            "description": "timestamp of the most recent post, match, etc",
+            "example": 1682347892
+          },
+          "visibility": {
+            "type": "string",
+            "enum": [
+              "public",
+              "private"
+            ],
+            "description": "whether the club is public or private",
+            "example": "public"
+          },
+          "join_request": {
+            "type": "string",
+            "format": "uri",
+            "description": "location to submit a request to join this club",
+            "example": "https://www.chess.com/club/join/57796"
+          },
+          "admin": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "array of URLs to the player profiles for the admins of this club",
+            "example": [
+              "https://api.chess.com/pub/player/erik",
+              "https://api.chess.com/pub/player/andreamorandini",
+              "https://api.chess.com/pub/player/bcurtis",
+              "https://api.chess.com/pub/player/jdcannon"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "description": "text description of the club",
+            "example": "<p>Chess.com's official club for APIs, data, and code for developers. Get involved!</p>..."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Club url",
+            "example": "https://www.chess.com/club/chess-com-developer-community"
+          }
+        }
+      },
+      "ClubMatch": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL pointing to the team match endpoint"
+          },
+          "name": {
+            "type": "string",
+            "description": "the team match name",
+            "example": "1000-1500"
+          },
+          "opponent": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL pointing to the opponent club endpoint",
+            "example": "https://api.chess.com/pub/club/chess-com-beta"
+          },
+          "result": {
+            "$ref": "#/components/schemas/GameResults"
+          },
+          "start_time": {
+            "type": "integer",
+            "description": "timestamp of the match start",
+            "example": 1692624006
+          },
+          "time_class": {
+            "type": "string",
+            "example": "daily"
+          }
+        }
+      },
+      "SingleTournament": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "url to Web tournament's URL",
+            "example": "https://www.chess.com/tournament/-33rd-chesscom-quick-knockouts-1401-1600"
+          },
+          "name": {
+            "type": "string",
+            "description": "the human-readable name of this club",
+            "example": "33rd Chess.com Quick Knockouts (1401-1600)"
+          },
+          "description": {
+            "type": "string",
+            "example": "This is the 33rd RAPID Chess.com Tournament! ..."
+          },
+          "creator": {
+            "type": "string",
+            "description": "username of creator",
+            "example": "Patzer24"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "finished",
+              "in_progress",
+              "registration"
+            ],
+            "description": "status of tournament",
+            "example": "finished"
+          },
+          "finish_time": {
+            "type": "integer",
+            "description": "timestamp of finish time, if tournament is finished",
+            "example": 1483511043
+          },
+          "settings": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "example": "round_robin"
+              },
+              "rules": {
+                "type": "string",
+                "example": "chess"
+              },
+              "time_class": {
+                "type": "string",
+                "example": "daily"
+              },
+              "time_control": {
+                "type": "string",
+                "example": "1/86400"
+              },
+              "is_rated": {
+                "type": "boolean",
+                "example": true
+              },
+              "is_official": {
+                "type": "boolean",
+                "example": true
+              },
+              "is_invite_only": {
+                "type": "boolean",
+                "example": false
+              },
+              "initial_group_size": {
+                "type": "integer",
+                "example": 6
+              },
+              "user_advance_count": {
+                "type": "integer",
+                "example": 1
+              },
+              "use_tiebreak": {
+                "type": "boolean",
+                "example": true
+              },
+              "allow_vacation": {
+                "type": "boolean",
+                "example": true
+              },
+              "winner_places": {
+                "type": "integer",
+                "example": 3
+              },
+              "registered_user_count": {
+                "type": "integer",
+                "example": 399
+              },
+              "games_per_opponent": {
+                "type": "integer",
+                "example": 2
+              },
+              "total_rounds": {
+                "type": "integer",
+                "example": 4
+              },
+              "concurrent_games_per_opponent": {
+                "type": "integer",
+                "example": 2
+              },
+              "min_rating": {
+                "type": "integer",
+                "example": 1401
+              },
+              "max_rating": {
+                "type": "integer",
+                "example": 1600
+              }
+            },
+            "description": "game settings"
+          },
+          "players": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "egoigwe"
+                },
+                "status": {
+                  "type": "string",
+                  "description": "status of user",
+                  "example": "eliminated"
+                }
+              }
+            }
+          },
+          "rounds": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            },
+            "example": [
+              "https://api.chess.com/pub/tournament/-33rd-chesscom-quick-knockouts-1401-1600/1",
+              "https://api.chess.com/pub/tournament/-33rd-chesscom-quick-knockouts-1401-1600/2"
+            ]
+          }
+        }
+      },
+      "TournamentRound": {
+        "type": "object",
+        "properties": {
+          "groups": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            },
+            "description": "List of tournament's round groups",
+            "example": [
+              "https://api.chess.com/pub/tournament/-33rd-chesscom-quick-knockouts-1401-1600/1/1",
+              "https://api.chess.com/pub/tournament/-33rd-chesscom-quick-knockouts-1401-1600/1/2",
+              "https://api.chess.com/pub/tournament/-33rd-chesscom-quick-knockouts-1401-1600/1/3"
+            ]
+          },
+          "players": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string"
+                },
+                "is_advancing": {
+                  "type": "boolean"
+                }
+              }
+            },
+            "description": "List of tournament's round players",
+            "example": [
+              {
+                "username": "telo21",
+                "is_advancing": true
+              },
+              {
+                "username": "mrtn",
+                "is_advancing": false
+              }
+            ]
+          }
+        }
+      },
+      "TournamentGroupGame": {
+        "type": "object",
+        "properties": {
+          "white": {
+            "type": "object",
+            "properties": {
+              "rating": {
+                "type": "integer",
+                "example": 1428
+              },
+              "result": {
+                "type": "string",
+                "example": "insufficient"
+              },
+              "@id": {
+                "type": "string",
+                "format": "uri",
+                "example": "https://api.chess.com/pub/player/rockaround"
+              },
+              "username": {
+                "type": "string",
+                "example": "Rockaround"
+              },
+              "uuid": {
+                "type": "string",
+                "format": "uuid",
+                "example": "7080aa8a-1172-11e6-8048-000000000000"
+              }
+            }
+          },
+          "black": {
+            "type": "object",
+            "properties": {
+              "rating": {
+                "type": "integer",
+                "example": 1533
+              },
+              "result": {
+                "type": "string",
+                "example": "insufficient"
+              },
+              "@id": {
+                "type": "string",
+                "format": "uri",
+                "example": "https://api.chess.com/pub/player/mrtn"
+              },
+              "username": {
+                "type": "string",
+                "example": "mrtn"
+              },
+              "uuid": {
+                "type": "string",
+                "format": "uuid",
+                "example": "becac6e8-bfeb-11dd-802c-000000000000"
+              }
+            }
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of this game",
+            "example": "https://www.chess.com/game/daily/138891582"
+          },
+          "fen": {
+            "type": "string",
+            "description": "current FEN",
+            "example": "8/8/8/8/8/2B5/3k4/1K6 b - - 0 69"
+          },
+          "pgn": {
+            "type": "string",
+            "description": "current PGN",
+            "example": "[Event \"33rd Chess.com Quick Knockouts (1401-1600) - Round 1\"] ..."
+          },
+          "turn": {
+            "type": "string",
+            "enum": [
+              "white",
+              "black"
+            ],
+            "description": "player to move",
+            "example": "white"
+          },
+          "move_by": {
+            "type": "integer",
+            "description": "timestamp of when the next move must be made this is \"0\" if the player-to-move is on vacation "
+          },
+          "draw_offer": {
+            "type": "string",
+            "enum": [
+              "white",
+              "black"
+            ],
+            "description": "player who has made a draw offer"
+          },
+          "last_activity": {
+            "type": "integer",
+            "description": "timestamp of the last activity on the game"
+          },
+          "start_time": {
+            "type": "integer",
+            "description": "timestamp of the game start (Daily Chess only)",
+            "example": 1467425819
+          },
+          "time_control": {
+            "type": "string",
+            "description": "PGN-compliant time control",
+            "example": "1/86400"
+          },
+          "time_class": {
+            "type": "string",
+            "description": "time-per-move grouping, used for ratings",
+            "example": "daily"
+          },
+          "rules": {
+            "type": "string",
+            "description": "game variant information (e.g., \"chess960\")",
+            "example": "chess"
+          },
+          "eco": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL pointing to ECO opening (if available)"
+          },
+          "tournament": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL pointing to tournament (if available)",
+            "example": "https://api.chess.com/pub/tournament/-33rd-chesscom-quick-knockouts-1401-1600"
+          },
+          "rated": {
+            "type": "boolean",
+            "example": true
+          },
+          "end_time": {
+            "type": "integer",
+            "example": 1468307842
+          }
+        }
+      },
+      "MatchTeam": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "type": "string",
+            "format": "uri",
+            "description": "API URL for the club profile",
+            "example": "https://api.chess.com/pub/club/team-romania"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Web URL for the club profile",
+            "example": "https://www.chess.com/club/team-romania"
+          },
+          "name": {
+            "type": "string",
+            "description": "club name",
+            "example": "Team Romania"
+          },
+          "score": {
+            "type": "integer",
+            "description": "Team score (adjuested in case of fair play recalculations)",
+            "example": 61.5
+          },
+          "result": {
+            "type": "string",
+            "description": "Team Winner or looser",
+            "example": "win"
+          },
+          "players": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "aayeah-bwoy"
+                },
+                "board": {
+                  "type": "string",
+                  "format": "uri",
+                  "example": "https://api.chess.com/pub/match/12803/45"
+                },
+                "stats": {
+                  "type": "string",
+                  "format": "uri",
+                  "example": "https://api.chess.com/pub/player/aayeah-bwoy/stats"
+                },
+                "played_as_black": {
+                  "type": "string",
+                  "example": "checkmated"
+                },
+                "played_as_white": {
+                  "type": "string",
+                  "example": "resigned"
+                },
+                "rating": {
+                  "type": "integer",
+                  "description": "rating of player",
+                  "example": 1845
+                },
+                "rd": {
+                  "type": "float",
+                  "description": "Glicko RD"
+                },
+                "timeout_percent": {
+                  "type": "float",
+                  "description": "timeout percentage in the last 90 days"
+                },
+                "status": {
+                  "type": "string",
+                  "description": "status of user",
+                  "example": "basic"
+                }
+              }
+            }
+          }
+        }
+      },
+      "SingleMatch": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "type": "string",
+            "example": "https://api.chess.com/pub/match/12803"
+          },
+          "name": {
+            "type": "string",
+            "description": "the human-readable name",
+            "example": "WORLD LEAGUE Round 5: Romania vs USA Southwest"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "the URL of the match on the website",
+            "example": "https://www.chess.com/club/matches/12803"
+          },
+          "description": {
+            "type": "string"
+          },
+          "start_time": {
+            "type": "integer",
+            "description": "manual or auto time start",
+            "example": 1247533336
+          },
+          "end_time": {
+            "type": "integer",
+            "description": "time end",
+            "example": 1263109104
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "finished",
+              "in_progress",
+              "registration"
+            ],
+            "description": "status of tournament",
+            "example": "finished"
+          },
+          "boards": {
+            "type": "integer",
+            "description": "number of boards",
+            "example": 54
+          },
+          "settings": {
+            "type": "object",
+            "properties": {
+              "time_class": {
+                "type": "string",
+                "example": "daily"
+              },
+              "time_control": {
+                "type": "string",
+                "example": "1/259200"
+              },
+              "initial_setup": {
+                "type": "string"
+              },
+              "rules": {
+                "type": "string",
+                "description": "game variant information (e.g., \"chess960\")",
+                "example": "chess"
+              },
+              "min_team_players": {
+                "type": "integer",
+                "description": "minimum number of players per team",
+                "example": 1
+              },
+              "max_team_players": {
+                "type": "integer",
+                "description": "maximum number of players per team",
+                "example": 25
+              },
+              "min_required_games": {
+                "type": "integer",
+                "description": "minimum number of required games",
+                "example": 0
+              },
+              "min_rating": {
+                "type": "integer",
+                "description": "minimum rating of players to be admitted in this match",
+                "example": 1200
+              },
+              "max_rating": {
+                "type": "integer",
+                "description": "maximum rating of players to be admitted in this match",
+                "example": 2600
+              },
+              "autostart": {
+                "type": "integer",
+                "description": "if the match is set to automatically start",
+                "example": false
+              }
+            },
+            "description": "game settings"
+          },
+          "teams": {
+            "type": "object",
+            "properties": {
+              "team1": {
+                "$ref": "#/components/schemas/MatchTeam"
+              },
+              "team2": {
+                "$ref": "#/components/schemas/MatchTeam"
+              }
+            }
+          }
+        }
+      },
+      "ClubGame": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of PubAPI match endpoint"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of match"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of match on web site"
+          },
+          "club": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of player's club endpoint"
+          },
+          "results": {
+            "type": "object",
+            "properties": {
+              "played_as_white": {
+                "type": "string",
+                "enum": [
+                  "checkmated",
+                  "agreed",
+                  "repetition",
+                  "timeout",
+                  "resigned",
+                  "stalemate",
+                  "lose",
+                  "insufficient",
+                  "50move",
+                  "abandoned",
+                  "kingofthehill",
+                  "threecheck",
+                  "timevsinsufficient",
+                  "bughousepartnerlose"
+                ],
+                "description": "result of game played as white"
+              },
+              "played_as_black": {
+                "type": "string",
+                "enum": [
+                  "checkmated",
+                  "agreed",
+                  "repetition",
+                  "timeout",
+                  "resigned",
+                  "stalemate",
+                  "lose",
+                  "insufficient",
+                  "50move",
+                  "abandoned",
+                  "kingofthehill",
+                  "threecheck",
+                  "timevsinsufficient",
+                  "bughousepartnerlose"
+                ],
+                "description": "result of game played as black"
+              }
+            }
+          },
+          "board": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL of PubAPI match board endpoint"
+          }
+        }
+      },
+      "TournamentGame": {
+        "type": "object",
+        "properties": {
+          "@id": {
+            "type": "string",
+            "format": "uri",
+            "description": "link to the Web URL of the tournament"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "link to the PubAPI URL of the tournament"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "winner",
+              "eliminated",
+              "withdrew",
+              "removed"
+            ]
+          },
+          "wins": {
+            "type": "integer",
+            "description": "number of wins"
+          },
+          "losses": {
+            "type": "integer",
+            "description": "number of losses"
+          },
+          "draws": {
+            "type": "integer",
+            "description": "number of draws"
+          },
+          "points_awarded": {
+            "type": "integer",
+            "description": "pints awarded"
+          },
+          "placement": {
+            "type": "integer",
+            "description": "placement"
+          },
+          "total_players": {
+            "type": "integer",
+            "description": "number of total players"
+          }
+        }
+      },
+      "ClubMembers": {
+        "type": "object",
+        "properties": {
+          "weekly": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "0joaolucas"
+                },
+                "joined": {
+                  "type": "integer",
+                  "example": 1706809397
+                }
+              }
+            }
+          },
+          "monthly": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "1chessking"
+                },
+                "joined": {
+                  "type": "integer",
+                  "example": 1690243497
+                }
+              }
+            }
+          },
+          "all_time": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string",
+                  "example": "000rumbo000"
+                },
+                "joined": {
+                  "type": "integer",
+                  "example": 1697248833
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/player/{username}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Username",
+          "example": "erik"
+        }
+      ],
+      "get": {
+        "summary": "Fetch player by username",
+        "description": "Get additional details about a player in a game",
+        "tags": [
+          "Player"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayerProfile"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/player/{username}/stats": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Username",
+          "example": "erik"
+        }
+      ],
+      "get": {
+        "summary": "Fetch player stats by username",
+        "description": "Get additional stats about a player in a game",
+        "tags": [
+          "Player"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "chess_daily": {
+                      "$ref": "#/components/schemas/ChessStatsWithTournament"
+                    },
+                    "chess960_daily": {
+                      "$ref": "#/components/schemas/ChessStatsWithTournament"
+                    },
+                    "chess_rapid": {
+                      "$ref": "#/components/schemas/ChessStats"
+                    },
+                    "chess_bullet": {
+                      "$ref": "#/components/schemas/ChessStats"
+                    },
+                    "chess_blitz": {
+                      "$ref": "#/components/schemas/ChessStats"
+                    },
+                    "fide": {
+                      "type": "integer",
+                      "example": 1707
+                    },
+                    "tactics": {
+                      "type": "object",
+                      "properties": {
+                        "highest": {
+                          "type": "object",
+                          "properties": {
+                            "rating": {
+                              "type": "integer",
+                              "example": 2883
+                            },
+                            "date": {
+                              "type": "integer",
+                              "example": 1685980712
+                            }
+                          }
+                        },
+                        "lowest": {
+                          "type": "object",
+                          "properties": {
+                            "rating": {
+                              "type": "integer",
+                              "example": 1073
+                            },
+                            "date": {
+                              "type": "integer",
+                              "example": 1201209658
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "puzzle_rush": {
+                      "type": "object",
+                      "properties": {
+                        "best": {
+                          "type": "object",
+                          "properties": {
+                            "total_attempts": {
+                              "type": "integer",
+                              "example": 43
+                            },
+                            "score": {
+                              "type": "integer",
+                              "example": 40
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/player/{username}/is-online": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Username",
+          "example": "erik"
+        }
+      ],
+      "get": {
+        "deprecated": true,
+        "summary": "Check if player is online",
+        "description": "Tells if an unser has been online in the last five minutes",
+        "tags": [
+          "Player"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "online": {
+                      "type": "boolean"
+                    }
+                  },
+                  "example": {
+                    "online": true
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/player/{username}/games": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Username",
+          "example": "erik"
+        }
+      ],
+      "get": {
+        "summary": "Fetch player's games by username",
+        "description": "Array of Daily Chess games that a player is currently playing",
+        "tags": [
+          "Games"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "games": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ChessGame"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/player/{username}/games/to-move": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Username",
+          "example": "erik"
+        }
+      ],
+      "get": {
+        "summary": "Fetch player's games on players turn",
+        "description": "Array of Daily Chess games where it is the player's turn to act",
+        "tags": [
+          "Games"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "games": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ToMoveItem"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/player/{username}/games/archives": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Username",
+          "example": "erik"
+        }
+      ],
+      "get": {
+        "summary": "Fetch player's archived games",
+        "description": "Array of monthly archives available for this player",
+        "tags": [
+          "Games"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "archives": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "format": "uri"
+                      }
+                    }
+                  },
+                  "example": {
+                    "archives": [
+                      "https://api.chess.com/pub/player/erik/games/2007/07",
+                      "https://api.chess.com/pub/player/erik/games/2007/08"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/player/{username}/games/{YYYY}/{MM}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Username",
+          "example": "erik"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "YYYY",
+          "in": "path",
+          "required": true,
+          "description": "is the four digit year of the game-end",
+          "example": "2024"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "MM",
+          "in": "path",
+          "required": true,
+          "description": "is the two-digit month",
+          "example": "01"
+        }
+      ],
+      "get": {
+        "summary": "Live and Daily Chess games",
+        "description": "Array of Live and Daily Chess games that a player has finished",
+        "tags": [
+          "Games"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "games": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/FinishedChessGame"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/player/{username}/games/{YYYY}/{MM}/pgn": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Username",
+          "example": "erik"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "YYYY",
+          "in": "path",
+          "required": true,
+          "description": "is the four digit year of the game-end",
+          "example": "2024"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "MM",
+          "in": "path",
+          "required": true,
+          "description": "is the two-digit month",
+          "example": "01"
+        }
+      ],
+      "get": {
+        "summary": "Live and Daily Chess games pgn download",
+        "description": "standard multi-game format PGN containing all games for a month",
+        "tags": [
+          "Games"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/x-chess-pgn": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "headers": {
+              "Content-Disposition": {
+                "description": "This disposition indicates that browser should download, not display, the result, and it suggests a filename based on the source archive",
+                "schema": {
+                  "type": "attachment"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/player/{username}/clubs": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Username",
+          "example": "erik"
+        }
+      ],
+      "get": {
+        "summary": "Fetch player's clubs",
+        "description": "List of clubs the player is a member of, with joined date and last activity date",
+        "tags": [
+          "Clubs"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "clubs": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/PlayerClub"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/club/{club_id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "club_id",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Club Id",
+          "example": "chess-com-developer-community"
+        }
+      ],
+      "get": {
+        "summary": "Get additional details about a club",
+        "description": "All club-based URLs use the club's \"URL ID\" to specify which club you want data for. https://api.chess.com/pub/club/{url-ID} \nThe url-ID is the same as found in the URL for the club's web page on www.chess.com. For example, the url-ID of the Chess.com Developer's Club is chess-com-developer-community",
+        "tags": [
+          "Clubs"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleClub"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/club/{club_id}/members": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "club_id",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Club Id",
+          "example": "chess-com-developer-community"
+        }
+      ],
+      "get": {
+        "summary": "List of club members",
+        "description": "List of club members (usernames and joined date timestamp), grouped by club-activity frequency. The club-activity is one of this actions",
+        "tags": [
+          "Clubs"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClubMembers"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/club/{club_id}/matches": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "club_id",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Club Id",
+          "example": "chess-com-developer-community"
+        }
+      ],
+      "get": {
+        "summary": "List of daily and club matches",
+        "description": "List of daily and club matches, grouped by status (registered, in progress, finished).",
+        "tags": [
+          "Clubs"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "finished": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ClubMatch"
+                      }
+                    },
+                    "in_progress": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ClubMatch"
+                      }
+                    },
+                    "registered": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ClubMatch"
+                      }
+                    }
+                  },
+                  "description": "Club Match"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/player/{username}/tournaments": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Username",
+          "example": "erik"
+        }
+      ],
+      "get": {
+        "summary": "Fetch player's matches",
+        "description": "List of Team matches the player has attended, is partecipating or is currently registered",
+        "tags": [
+          "Tournament"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "finished": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TournamentGame"
+                      }
+                    },
+                    "in_progress": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TournamentGame"
+                      }
+                    },
+                    "registered": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "link to the PubAPI URL of the tournament"
+                          },
+                          "@id": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "link to the Web URL of the tournament"
+                          },
+                          "status": {
+                            "type": "string",
+                            "enum": [
+                              "invited",
+                              "registered"
+                            ],
+                            "description": "current status of user"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "finished": [
+                      {
+                        "url": "https://www.chess.com/tournament/100-years-of-chemotherapy---remembrance-tournament",
+                        "@id": "https://api.chess.com/pub/tournament/100-years-of-chemotherapy---remembrance-tournament",
+                        "wins": 11,
+                        "losses": 5,
+                        "draws": 0,
+                        "points_awarded": 31,
+                        "placement": 10,
+                        "status": "eliminated",
+                        "total_players": 100
+                      }
+                    ],
+                    "in_progress": [
+                      {
+                        "url": "https://www.chess.com/tournament/chess-com-staff-tournament-2021",
+                        "@id": "https://api.chess.com/pub/tournament/chess-com-staff-tournament-2021",
+                        "wins": 8,
+                        "losses": 5,
+                        "draws": 1,
+                        "status": "eliminated",
+                        "total_players": 96
+                      }
+                    ],
+                    "registered": [
+                      {
+                        "url": "https://www.chess.com/tournament/chess-com-staff-tournament-2022",
+                        "@id": "https://api.chess.com/pub/tournament/chess-com-staff-tournament-2022",
+                        "status": "invited"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tournament/{tournament_id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "tournament_id",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Club Id",
+          "example": "-33rd-chesscom-quick-knockouts-1401-1600"
+        }
+      ],
+      "get": {
+        "summary": "Get tournament details",
+        "description": "Get details about a daily, live and arena tournament",
+        "tags": [
+          "Tournament"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleTournament"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tournament/{tournament_id}/{round}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "tournament_id",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Club Id",
+          "example": "-33rd-chesscom-quick-knockouts-1401-1600"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "round",
+          "in": "path",
+          "required": true,
+          "description": "Tournament Round",
+          "example": "1"
+        }
+      ],
+      "get": {
+        "summary": "Get details about a tournament's round",
+        "description": "Get details about a tournament's round",
+        "tags": [
+          "Tournament"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TournamentRound"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tournament/{tournament_id}/{round}/{group}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "tournament_id",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Club Id",
+          "example": "-33rd-chesscom-quick-knockouts-1401-1600"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "round",
+          "in": "path",
+          "required": true,
+          "description": "Tournament Round",
+          "example": "1"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "group",
+          "in": "path",
+          "required": true,
+          "description": "Tournament Group",
+          "example": "1"
+        }
+      ],
+      "get": {
+        "summary": "Get details about a tournament's round group",
+        "description": "Get details about a tournament's round group",
+        "tags": [
+          "Tournament"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "fair_play_removals": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "list of username accounts closed for fair play violation"
+                    },
+                    "games": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/TournamentGroupGame"
+                      },
+                      "description": "List of tournament's round groups"
+                    },
+                    "players": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "username": {
+                            "type": "string",
+                            "example": "mrtn"
+                          },
+                          "points": {
+                            "type": "float",
+                            "description": "points earned by player in this group adjuested in case of fair play recalculations)",
+                            "example": 4.5
+                          },
+                          "tie_break": {
+                            "type": "integer",
+                            "description": "tie-break points by player earned in this group",
+                            "example": 17.25
+                          },
+                          "is_advancing": {
+                            "type": "boolean",
+                            "example": false
+                          }
+                        }
+                      },
+                      "description": "List of tournament's round players"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/player/{username}/matches": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "username",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Username",
+          "example": "erik"
+        }
+      ],
+      "get": {
+        "summary": "Fetch player's matches",
+        "description": "List of Team matches the player has attended, is partecipating or is currently registered",
+        "tags": [
+          "Match"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "finished": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ClubGame"
+                      }
+                    },
+                    "in_progress": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ClubGame"
+                      }
+                    },
+                    "registered": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/ClubGame"
+                      }
+                    }
+                  },
+                  "example": {
+                    "finished": [
+                      {
+                        "name": "1st TOC. Bishop Div/R3:TeamUSA vs Netherlands",
+                        "url": "https://www.chess.com/club/matches/642370",
+                        "@id": "https://api.chess.com/pub/match/642370",
+                        "club": "https://api.chess.com/pub/club/team-usa",
+                        "results": {
+                          "played_as_white": "repetition",
+                          "played_as_black": "resigned"
+                        },
+                        "board": "https://api.chess.com/pub/match/642370/29"
+                      }
+                    ],
+                    "in_progress": [
+                      {
+                        "name": "Chess960 WL2023 R8:  Team  USA vs Team Hungary - Magyar Sakkegylet",
+                        "url": "https://www.chess.com/club/matches/1525977",
+                        "@id": "https://api.chess.com/pub/match/1525977",
+                        "club": "https://api.chess.com/pub/club/team-usa",
+                        "results": {
+                          "played_as_white": "win",
+                          "played_as_black": "resigned"
+                        },
+                        "board": "https://api.chess.com/pub/match/1525977/36"
+                      }
+                    ],
+                    "registered": []
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/match/{match_id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "match_id",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Match Id",
+          "example": "12803"
+        }
+      ],
+      "get": {
+        "summary": "Get Match details",
+        "description": "Get details about a team match and players playing that match. After the match is finished there will be a link to each player's stats endpoint, in order to get up-to-date information about the player.",
+        "tags": [
+          "Match"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SingleMatch"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/match/{match_id}/{board_number}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "match_id",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Match Id",
+          "example": "12803"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "board_number",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Board Number",
+          "example": "1"
+        }
+      ],
+      "get": {
+        "summary": "Get Match Board details",
+        "description": "Get details about a team match board. Only in-progress or finished games will be included, so there may be one or two games in this list",
+        "tags": [
+          "Match"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "board_scores": {
+                      "type": "object",
+                      "properties": {
+                        "player1": {
+                          "type": "float"
+                        },
+                        "player2": {
+                          "type": "float"
+                        }
+                      },
+                      "description": "User score (adjuested in case of fair play recalculations)"
+                    },
+                    "games": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "white": {
+                            "$ref": "#/components/schemas/MatchBoardPlayerDetails"
+                          },
+                          "black": {
+                            "$ref": "#/components/schemas/MatchBoardPlayerDetails"
+                          },
+                          "accuracies": {
+                            "type": "object",
+                            "properties": {
+                              "white": {
+                                "type": "float"
+                              },
+                              "black": {
+                                "type": "float"
+                              }
+                            },
+                            "description": "player's accuracies, if they were previously"
+                          },
+                          "url": {
+                            "type": "string",
+                            "format": "uri",
+                            "description": "URL of this game"
+                          },
+                          "fen": {
+                            "type": "string",
+                            "description": "current FEN"
+                          },
+                          "pgn": {
+                            "type": "string",
+                            "description": "final PGN, if game's finished"
+                          },
+                          "start_time": {
+                            "type": "integer",
+                            "description": "timestamp of the game start (Daily Chess only)"
+                          },
+                          "end_time": {
+                            "type": "integer",
+                            "description": "timestamp of the game end, if game's finished"
+                          },
+                          "time_control": {
+                            "type": "string",
+                            "description": "PGN-compliant time control"
+                          },
+                          "time_class": {
+                            "type": "string",
+                            "description": "time-per-move grouping, used for ratings"
+                          },
+                          "rules": {
+                            "type": "string",
+                            "description": "game variant information (e.g., \"chess960\")"
+                          },
+                          "eco": {
+                            "type": "string",
+                            "description": "URL pointing to ECO opening (if available)"
+                          },
+                          "match": {
+                            "type": "string",
+                            "description": "URL pointing to team match (if available)"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "board_scores": {
+                      "sorinel": 1,
+                      "kllr": 1
+                    },
+                    "games": [
+                      {
+                        "url": "https://www.chess.com/game/daily/23794338",
+                        "pgn": "[Event \"WORLD LEAGUE Round 5: Romania vs USA Southwest - Board 1\"]...",
+                        "time_control": "1/259200",
+                        "end_time": 1249906565,
+                        "rated": true,
+                        "fen": "r3r1k1/4p2p/1pn2bp1/6N1/2p3P1/P6P/1P3P2/R1BR2K1 w - - 3 23",
+                        "start_time": 1247533324,
+                        "time_class": "daily",
+                        "rules": "chess",
+                        "white": {
+                          "rating": 2699,
+                          "result": "agreed",
+                          "@id": "https://api.chess.com/pub/player/sorinel",
+                          "username": "sorinel",
+                          "uuid": "e6759e94-7b4d-11dd-8062-000000000000"
+                        },
+                        "black": {
+                          "rating": 2671,
+                          "result": "agreed",
+                          "@id": "https://api.chess.com/pub/player/kllr",
+                          "username": "Kllr",
+                          "uuid": "bfe85970-f61c-11dd-800c-000000000000"
+                        },
+                        "match": "https://api.chess.com/pub/match/12803"
+                      },
+                      {
+                        "url": "https://www.chess.com/game/daily/23794339",
+                        "pgn": "[Event \"WORLD LEAGUE Round 5: Romania vs USA Southwest - Board 1\"]...",
+                        "time_control": "1/259200",
+                        "end_time": 1260031724,
+                        "rated": true,
+                        "fen": "8/5p2/3r1kp1/R6p/5P1P/5PK1/8/8 w - - 20 59",
+                        "start_time": 1247533324,
+                        "time_class": "daily",
+                        "rules": "chess",
+                        "white": {
+                          "rating": 2344,
+                          "result": "repetition",
+                          "@id": "https://api.chess.com/pub/player/kllr",
+                          "username": "Kllr",
+                          "uuid": "bfe85970-f61c-11dd-800c-000000000000"
+                        },
+                        "black": {
+                          "rating": 2816,
+                          "result": "repetition",
+                          "@id": "https://api.chess.com/pub/player/sorinel",
+                          "username": "sorinel",
+                          "uuid": "e6759e94-7b4d-11dd-8062-000000000000"
+                        },
+                        "match": "https://api.chess.com/pub/match/12803"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/match/live/{match_id}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "match_id",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Match Id",
+          "example": "5833"
+        }
+      ],
+      "get": {
+        "summary": "Get Live Match details",
+        "description": "Get details about a team match and players playing that match. After the match is finished there will be a link to each player's stats endpoint, in order to get up-to-date information about the player",
+        "tags": [
+          "Match"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "url": {
+                      "type": "string",
+                      "format": "uri",
+                      "description": "the URL of the match"
+                    },
+                    "@id": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "start_time": {
+                      "type": "integer"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "boards": {
+                      "type": "integer"
+                    },
+                    "settings": {
+                      "type": "object",
+                      "properties": {
+                        "rules": {
+                          "type": "string"
+                        },
+                        "time_class": {
+                          "type": "string"
+                        },
+                        "time_control": {
+                          "type": "integer"
+                        },
+                        "time_increment": {
+                          "type": "integer"
+                        },
+                        "min_team_players": {
+                          "type": "integer"
+                        },
+                        "min_required_games": {
+                          "type": "integer"
+                        },
+                        "autostart": {
+                          "type": "boolean"
+                        }
+                      }
+                    },
+                    "teams": {
+                      "type": "object",
+                      "properties": {
+                        "team1": {
+                          "$ref": "#/components/schemas/MatchTeam"
+                        },
+                        "team2": {
+                          "$ref": "#/components/schemas/MatchTeam"
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "@id": "https://api.chess.com/pub/match/live/5833",
+                    "name": "Friendly 5+2",
+                    "url": "https://www.chess.com/club/matches/live/5833",
+                    "start_time": 1579471260,
+                    "end_time": 1579472487,
+                    "status": "finished",
+                    "boards": 6,
+                    "settings": {
+                      "rules": "chess",
+                      "time_class": "blitz",
+                      "time_control": 300,
+                      "time_increment": 2,
+                      "min_team_players": 2,
+                      "min_required_games": 0,
+                      "autostart": false
+                    },
+                    "teams": {
+                      "team1": {
+                        "@id": "https://api.chess.com/pub/club/the-leopards",
+                        "name": "The Leopards",
+                        "url": "https://www.chess.com/club/the-leopards",
+                        "score": 7,
+                        "result": "win",
+                        "players": [
+                          {
+                            "username": "fabian_leo",
+                            "stats": "https://api.chess.com/pub/player/fabian_leo/stats",
+                            "status": "basic",
+                            "played_as_white": "win",
+                            "played_as_black": "win",
+                            "board": "https://api.chess.com/pub/match/live/5833/2"
+                          },
+                          {
+                            "username": "guilhermekk",
+                            "stats": "https://api.chess.com/pub/player/guilhermekk/stats",
+                            "status": "premium",
+                            "played_as_white": "win",
+                            "played_as_black": "resigned",
+                            "board": "https://api.chess.com/pub/match/live/5833/4"
+                          }
+                        ],
+                        "fair_play_removals": []
+                      },
+                      "team2": {
+                        "@id": "https://api.chess.com/pub/club/not-so-pro-chess-league",
+                        "name": "Not-So PRO Chess League",
+                        "url": "https://www.chess.com/club/not-so-pro-chess-league",
+                        "score": 5,
+                        "result": "lose",
+                        "players": [
+                          {
+                            "username": "25elevin",
+                            "stats": "https://api.chess.com/pub/player/25elevin/stats",
+                            "status": "premium",
+                            "played_as_black": "timeout",
+                            "played_as_white": "timeout",
+                            "board": "https://api.chess.com/pub/match/live/5833/2"
+                          },
+                          {
+                            "username": "alexkotow",
+                            "stats": "https://api.chess.com/pub/player/alexkotow/stats",
+                            "status": "basic",
+                            "played_as_black": "resigned",
+                            "played_as_white": "resigned",
+                            "board": "https://api.chess.com/pub/match/live/5833/6"
+                          }
+                        ],
+                        "fair_play_removals": []
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/match/live/{match_id}/{board_number}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "match_id",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Match Id",
+          "example": "5833"
+        },
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "board_number",
+          "in": "path",
+          "required": true,
+          "description": "Chess.com Match Board Number",
+          "example": "1"
+        }
+      ],
+      "get": {
+        "summary": "Get Live Match Board details",
+        "description": "Get details about a team match board. Only in-progress or finished games will be included, so there may be one or two games in this list.",
+        "tags": [
+          "Match"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "board_scores": {
+                      "type": "object",
+                      "properties": {
+                        "<username>": {
+                          "type": "float",
+                          "description": "User score (adjuested in case of fair play recalculations)"
+                        }
+                      }
+                    },
+                    "games": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "pgn": {
+                            "type": "string"
+                          },
+                          "time_control": {
+                            "type": "string"
+                          },
+                          "end_time": {
+                            "type": "integer"
+                          },
+                          "rated": {
+                            "type": "boolean"
+                          },
+                          "fen": {
+                            "type": "string"
+                          },
+                          "time_class": {
+                            "type": "string"
+                          },
+                          "rules": {
+                            "type": "string"
+                          },
+                          "white": {
+                            "type": "object",
+                            "properties": {
+                              "rating": {
+                                "type": "integer"
+                              },
+                              "result": {
+                                "type": "string"
+                              },
+                              "@id": {
+                                "type": "string",
+                                "format": "uri"
+                              },
+                              "username": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "black": {
+                            "type": "object",
+                            "properties": {
+                              "rating": {
+                                "type": "integer"
+                              },
+                              "result": {
+                                "type": "string"
+                              },
+                              "@id": {
+                                "type": "string",
+                                "format": "uri"
+                              },
+                              "username": {
+                                "type": "string"
+                              }
+                            }
+                          },
+                          "eco": {
+                            "type": "string",
+                            "format": "uri"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "board_scores": {
+                      "edr0nt": 1,
+                      "insan3_7": 1
+                    },
+                    "games": [
+                      {
+                        "url": "https://www.chess.com/game/live/4415534338",
+                        "pgn": "[Event \"Live Chess\"]\n[Site \"Chess.com\"]...",
+                        "time_control": "300+2",
+                        "end_time": 1579471774,
+                        "rated": true,
+                        "fen": "4Rk2/3Q4/2p2qp1/1r1p4/8/1P4p1/2P2PP1/6K1 b - -",
+                        "time_class": "blitz",
+                        "rules": "chess",
+                        "white": {
+                          "rating": 1851,
+                          "result": "win",
+                          "@id": "https://api.chess.com/pub/player/edr0nt",
+                          "username": "edr0nt",
+                          "uuid": "78b752de-cdb7-11e5-803c-000000000000"
+                        },
+                        "black": {
+                          "rating": 1909,
+                          "result": "checkmated",
+                          "@id": "https://api.chess.com/pub/player/insan3_7",
+                          "username": "InSaN3_7",
+                          "uuid": "32c57b80-a4a9-11e9-b9f7-9194ac470c80"
+                        },
+                        "eco": "https://www.chess.com/openings/Center-Game-Accepted-Normal-Variation"
+                      },
+                      {
+                        "url": "https://www.chess.com/game/live/4415556582",
+                        "pgn": "[Event \"Live Chess\"]\n[Site \"Chess.com\"]\n...",
+                        "time_control": "300+2",
+                        "end_time": 1579472276,
+                        "rated": true,
+                        "fen": "8/8/8/6Qk/7P/K7/8/8 b - -",
+                        "time_class": "blitz",
+                        "rules": "chess",
+                        "white": {
+                          "rating": 1919,
+                          "result": "win",
+                          "@id": "https://api.chess.com/pub/player/insan3_7",
+                          "username": "InSaN3_7",
+                          "uuid": "32c57b80-a4a9-11e9-b9f7-9194ac470c80"
+                        },
+                        "black": {
+                          "rating": 1844,
+                          "result": "checkmated",
+                          "@id": "https://api.chess.com/pub/player/edr0nt",
+                          "username": "edr0nt",
+                          "uuid": "78b752de-cdb7-11e5-803c-000000000000"
+                        },
+                        "eco": "https://www.chess.com/openings/Scandinavian-Defense-Mieses-Kotrc-Variation-3.Nc3-Qd8"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/titled/{title_abbrev}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string",
+            "enum": [
+              "GM",
+              "WGM",
+              "IM",
+              "WIM",
+              "FM",
+              "WFM",
+              "NM",
+              "WNM",
+              "CM",
+              "WCM"
+            ]
+          },
+          "name": "title_abbrev",
+          "in": "path",
+          "required": true,
+          "description": "Titled Player abbreviation",
+          "example": "GM"
+        }
+      ],
+      "get": {
+        "summary": "Fetch titled players",
+        "description": "List of titled-player usernames",
+        "tags": [
+          "Titled"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "username of a titled player"
+                  },
+                  "example": [
+                    "124chess",
+                    "1977ivan",
+                    "1stsecond",
+                    "..."
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/country/{iso_code}": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "iso_code",
+          "in": "path",
+          "required": true,
+          "description": "All country-based URLs use the country's 2-character ISO 3166 code (capitalized) to specify which country you want data for.",
+          "example": "US"
+        }
+      ],
+      "get": {
+        "summary": "Get additional details about a country",
+        "description": "Get additional details about a country",
+        "tags": [
+          "Country"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "@id": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "example": {
+                    "@id": "https://api.chess.com/pub/country/US",
+                    "code": "US",
+                    "name": "United States"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/country/{iso_code}/players": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "iso_code",
+          "in": "path",
+          "required": true,
+          "description": "All country-based URLs use the country's 2-character ISO 3166 code (capitalized) to specify which country you want data for.",
+          "example": "US"
+        }
+      ],
+      "get": {
+        "summary": "Get country's players",
+        "description": "Get additional details about a country's players",
+        "tags": [
+          "Country"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "players": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "example": {
+                    "players": [
+                      "---faniel",
+                      "-kingofthecastle-",
+                      "-roman-"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/country/{iso_code}/clubs": {
+      "parameters": [
+        {
+          "schema": {
+            "type": "string"
+          },
+          "name": "iso_code",
+          "in": "path",
+          "required": true,
+          "description": "All country-based URLs use the country's 2-character ISO 3166 code (capitalized) to specify which country you want data for.",
+          "example": "IT"
+        }
+      ],
+      "get": {
+        "summary": "Get country's clubs",
+        "description": "Get additional details about a country's clubs",
+        "tags": [
+          "Country"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "clubs": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "format": "uri"
+                      }
+                    }
+                  },
+                  "example": {
+                    "clubs": [
+                      "https://api.chess.com/pub/club/italys-finest",
+                      "https://api.chess.com/pub/club/pawncraft",
+                      "https://api.chess.com/pub/club/kingchessmaster-and-his-friends"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/puzzle": {
+      "parameters": [],
+      "get": {
+        "summary": "Daily Puzzle",
+        "description": "Information about the daily puzzle found on www.chess.com",
+        "tags": [
+          "Puzzle"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Puzzle"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/puzzle/random": {
+      "parameters": [],
+      "get": {
+        "summary": "Random Puzzle",
+        "description": "Information about a randomly picked daily puzzle",
+        "tags": [
+          "Puzzle"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Puzzle"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/streamers": {
+      "parameters": [],
+      "get": {
+        "summary": "Streamers",
+        "description": "Information about a randomly picked daily puzzle",
+        "tags": [
+          "Streamers"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "streamers": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "username": {
+                            "type": "string"
+                          },
+                          "avatar": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "twitch_url": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "url": {
+                            "type": "string",
+                            "format": "uri"
+                          },
+                          "is_live": {
+                            "type": "boolean"
+                          },
+                          "is_community_streamer": {
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "streamers": [
+                      {
+                        "username": "ChessTV",
+                        "avatar": "https://images.chesscomfiles.com/uploads/v1/user/12892566.fb3a2474.50x50o.8eedb8fc4b9b.png",
+                        "twitch_url": "https://twitch.tv/chess",
+                        "url": "https://www.chess.com/member/ChessTV",
+                        "is_live": true,
+                        "is_community_streamer": false
+                      },
+                      {
+                        "username": "Oleksandr_Bortnyk",
+                        "avatar": "https://images.chesscomfiles.com/uploads/v1/user/28168290.0998f38b.50x50o.14a485723e12.jpeg",
+                        "twitch_url": "https://twitch.tv/bortnykchess",
+                        "url": "https://www.chess.com/member/Oleksandr_Bortnyk",
+                        "is_live": true,
+                        "is_community_streamer": false
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/leaderboards": {
+      "parameters": [],
+      "get": {
+        "summary": "Leaderboards",
+        "description": "It displays information about top 50 player for daily and live games, tactics and lessons.",
+        "tags": [
+          "Leaderboards"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "daily": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Leaderboard"
+                      }
+                    },
+                    "daily960": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Leaderboard"
+                      }
+                    },
+                    "live_rapid": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Leaderboard"
+                      }
+                    },
+                    "live_blitz": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Leaderboard"
+                      }
+                    },
+                    "live_bullet": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Leaderboard"
+                      }
+                    },
+                    "live_bughouse": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Leaderboard"
+                      }
+                    },
+                    "live_blitz960": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Leaderboard"
+                      }
+                    },
+                    "live_threecheck": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Leaderboard"
+                      }
+                    },
+                    "live_crazyhouse": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Leaderboard"
+                      }
+                    },
+                    "live_kingofthehill": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Leaderboard"
+                      }
+                    },
+                    "rush": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Leaderboard"
+                      }
+                    },
+                    "battle": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Leaderboard"
+                      }
+                    },
+                    "tactics": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Leaderboard"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
