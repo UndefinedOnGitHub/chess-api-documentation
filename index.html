@@ -9,9 +9,9 @@
     />
     <title>SwaggerUI </title>
     <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui.css" />
-    <!-- <script src="https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui-bundle.js" crossorigin></script> -->
   </head>
   <body>
+    <div id="swagger-ui"></div>
     <script type="text/javascript">
       function loadScript(src, callback) {
         var script  = document.createElement("script");
@@ -20,23 +20,14 @@
         document.getElementsByTagName("head")[0].appendChild(script);
       };
 
-      loadScript("https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui-bundle.js", function(){
-        console.log("Loading Swagger")
+      loadScript("https://unpkg.com/swagger-ui-dist@4.5.0/swagger-ui-bundle.js", function() {
+        console.log("Swagger Loaded")
+        const jsonUrl = "https://raw.githubusercontent.com/UndefinedOnGitHub/chess-api-documentation/master/openapi.json";
         window.ui = SwaggerUIBundle({
-          url: "https://raw.githubusercontent.com/UndefinedOnGitHub/chess-api-documentation/master/openapi.json",
+          url: jsonUrl,
           dom_id: '#swagger-ui',
         });
-        // alert("loading is done");
       });
-    </script>
-    <div id="swagger-ui"></div>
-    <script>
-      // window.onload = () => {
-      //   window.ui = SwaggerUIBundle({
-      //     url: "https://raw.githubusercontent.com/UndefinedOnGitHub/chess-api-documentation/master/openapi.json",
-      //     dom_id: '#swagger-ui',
-      //   });
-      // };
     </script>
   </body>
 </html>
