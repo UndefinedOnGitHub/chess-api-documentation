@@ -4,6 +4,7 @@ This is an open api version of the public api.
 
 ## Using Api
 index.html
+https://htmlpreview.github.io/?https://github.com/UndefinedOnGitHub/chess-api-documentation/blob/master/index.html
 
 ## Development
 
