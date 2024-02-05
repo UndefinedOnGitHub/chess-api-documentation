@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "validate": "npx openapi-generator-cli validate -i ./openapi.json",
-    "generate-yml": "npx openapi-generator-cli generate -g openapi-yaml -i ./openapi.json"
+    "generate-yml": "npx openapi-generator-cli generate -g openapi-yaml -i ./openapi.json",
+    "generate-markdown": "npx openapi-generator-cli generate -g markdown -i ./openapi.json -o readmes"
   },
   "author": "",
   "license": "ISC",
