@@ -32,7 +32,7 @@ This whole project is all about the `openapi.json`. The rest of the project is j
       "description": "Chess.com Public Api"
     }
   ],
-  ...
+  "//": "..."
 ```
 
 ## Using The Api
@@ -42,8 +42,7 @@ You can see a live local index.html version here:
 
 or
 
-Paste the JSON in one of these:
-* [raw JSON link](https://raw.githubusercontent.com/UndefinedOnGitHub/chess-api-documentation/master/openapi.json)
+Paste the [JSON link](https://raw.githubusercontent.com/UndefinedOnGitHub/chess-api-documentation/master/openapi.json) in one of these:
 * [Viewer 1](https://mrin9.github.io/OpenAPI-Viewer/#/load/)
 * [Viewer 2](https://rapidocweb.com/examples/example2.html)
 
@@ -53,7 +52,7 @@ Go online and look up any openapi documentation viewer
 
 ## Development
 
-## Structure
+### Structure
 
 Use [openapi v3.1.0](https://spec.openapis.org/oas/v3.1.0)
 
@@ -64,4 +63,7 @@ npx openapi-generator-cli validate -i ./openapi.json
 
 ### Live Debugging
 * Simply host the project with any local server
+```bash
+npx http-server
+```
 * Edit [index.html](https://github.com/UndefinedOnGitHub/chess-api-documentation/blob/master/index.html) to reference the local json file
