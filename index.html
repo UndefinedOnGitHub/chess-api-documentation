@@ -22,8 +22,8 @@
 
       loadScript("https://unpkg.com/swagger-ui-dist@5.0.0/swagger-ui-bundle.js", function() {
         console.log("Swagger Loaded")
-        // const jsonUrl = "https://raw.githubusercontent.com/UndefinedOnGitHub/chess-api-documentation/master/openapi.json";
-        const jsonUrl = "./openapi.json";
+        const jsonUrl = "https://raw.githubusercontent.com/UndefinedOnGitHub/chess-api-documentation/master/openapi.json";
+        // const jsonUrl = "./openapi.json";
         window.ui = SwaggerUIBundle({
           url: jsonUrl,
           dom_id: '#swagger-ui',
