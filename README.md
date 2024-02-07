@@ -1,6 +1,6 @@
 # OpenAPI Documentation for Chess.com
 
-This is an [openapi](https://learn.openapis.org/) version [3.0.0](https://spec.openapis.org/oas/v3.1.0) for the public api.
+This is an [openapi](https://learn.openapis.org/) version [3.0.0](https://spec.openapis.org/oas/v3.0.0) for the public api.
 
 ### TLDR: This is the [JSON](https://raw.githubusercontent.com/UndefinedOnGitHub/chess-api-documentation/master/openapi.json), This is the [live viewer](https://htmlpreview.github.io/?https://github.com/UndefinedOnGitHub/chess-api-documentation/blob/master/index.html).
 
@@ -54,7 +54,7 @@ Go online and look up any openapi documentation viewer
 
 ### Structure
 
-Use [openapi v3.1.0](https://spec.openapis.org/oas/v3.1.0)
+Use [openapi v3.0.0](https://spec.openapis.org/oas/v3.0.0)
 
 ### Openapi Validation
 ```bash
