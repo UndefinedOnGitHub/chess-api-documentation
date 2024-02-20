@@ -158,94 +158,105 @@
         "properties": {
           "title": {
             "type": "string",
-            "description": "the title of the daily puzzle"
+            "description": "the title of the daily puzzle",
+            "example": "Around the World in Five Moves"
           },
           "url": {
             "type": "string",
             "format": "uri",
-            "description": "url to daily puzzle in chess.com"
+            "description": "url to daily puzzle in chess.com",
+            "example": "https://www.chess.com/forum/view/daily-puzzles/2-2-2024-around-the-world-in-five-moves"
           },
           "publish_time": {
             "type": "integer",
-            "description": "the date of the published puzzle"
+            "description": "the date of the published puzzle",
+            "example": 1706860800
           },
           "fen": {
             "type": "string",
-            "description": "the FEN of the published puzzle"
+            "description": "the FEN of the published puzzle",
+            "example": "q6r/1bR1p1k1/1B3bp1/1p3p2/1P3Pnr/1B1PN1N1/3RQ1P1/6K1 b - - 0 1"
           },
           "pgn": {
             "type": "string",
-            "description": "the PGN of the published puzzle, and yes, we know that thing you have noticed"
+            "description": "the PGN of the published puzzle, and yes, we know that thing you have noticed",
+            "example": "[Result \"*\"]\r\n[FEN \"q6r/1bR1p1k1/1B3bp1/1p3p2/1P3Pnr/1B1PN1N1/3RQ1P1/6K1 b - - 0 1\"]\r\n\r\n1... Rh1+ 2. Nxh1 Rxh1+ 3. Kxh1 Qh8+ 4. Kg1 Qh2+ 5. Kf1 Qh1# *"
           },
           "image": {
             "type": "string",
             "format": "uri",
-            "description": "the link to the image"
+            "description": "the link to the image",
+            "example": "https://www.chess.com/dynboard?fen=q6r/1bR1p1k1/1B3bp1/1p3p2/1P3Pnr/1B1PN1N1/3RQ1P1/6K1%20b%20-%20-%200%201&size=2"
           }
-        },
-        "example": {
-          "title": "Around the World in Five Moves",
-          "url": "https://www.chess.com/forum/view/daily-puzzles/2-2-2024-around-the-world-in-five-moves",
-          "publish_time": 1706860800,
-          "fen": "q6r/1bR1p1k1/1B3bp1/1p3p2/1P3Pnr/1B1PN1N1/3RQ1P1/6K1 b - - 0 1",
-          "pgn": "[Result \"*\"]\r\n[FEN \"q6r/1bR1p1k1/1B3bp1/1p3p2/1P3Pnr/1B1PN1N1/3RQ1P1/6K1 b - - 0 1\"]\r\n\r\n1... Rh1+ 2. Nxh1 Rxh1+ 3. Kxh1 Qh8+ 4. Kg1 Qh2+ 5. Kf1 Qh1# *",
-          "image": "https://www.chess.com/dynboard?fen=q6r/1bR1p1k1/1B3bp1/1p3p2/1P3Pnr/1B1PN1N1/3RQ1P1/6K1%20b%20-%20-%200%201&size=2"
         }
       },
       "Leaderboard": {
         "type": "object",
         "properties": {
           "player_id": {
-            "type": "integer"
+            "type": "integer",
+            "example": 2305524
           },
           "url": {
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "example": "https://www.chess.com/member/Zgorl"
           },
           "@id": {
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "example": "https://api.chess.com/pub/player/zgorl"
           },
           "username": {
-            "type": "string"
+            "type": "string",
+            "example": "Zgorl"
           },
           "score": {
-            "type": "integer"
+            "type": "integer",
+            "example": 2571
           },
           "rank": {
             "type": "integer",
             "minimum": 0,
-            "maximum": 50
+            "maximum": 50,
+            "example": 1
           },
           "country": {
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "example": "https://api.chess.com/pub/country/NL"
           },
           "title": {
             "type": "string",
             "enum": [
               "GM",
               "FM"
-            ]
+            ],
+            "example": "FM"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "example": "Rob Schoorl"
           },
           "status": {
-            "type": "string"
+            "type": "string",
+            "example": "premium"
           },
           "avatar": {
             "type": "string",
-            "format": "uri"
+            "format": "uri",
+            "example": "https://images.chesscomfiles.com/uploads/v1/user/2305524.5341b605.200x200o.67a89f6c51b4.jpeg"
           },
           "trend_score": {
             "type": "object",
             "properties": {
               "direction": {
-                "type": "integer"
+                "type": "integer",
+                "example": 0
               },
               "delta": {
-                "type": "integer"
+                "type": "integer",
+                "example": 0
               }
             }
           },
@@ -253,50 +264,31 @@
             "type": "object",
             "properties": {
               "direction": {
-                "type": "integer"
+                "type": "integer",
+                "example": 0
               },
               "delta": {
-                "type": "integer"
+                "type": "integer",
+                "example": 0
               }
             }
           },
           "flair_code": {
-            "type": "string"
+            "type": "string",
+            "example": "white_bishop"
           },
           "win_count": {
-            "type": "integer"
+            "type": "integer",
+            "example": 494
           },
           "loss_count": {
-            "type": "integer"
+            "type": "integer",
+            "example": 206
           },
           "draw_count": {
-            "type": "integer"
+            "type": "integer",
+            "example": 61
           }
-        },
-        "example": {
-          "player_id": 2305524,
-          "@id": "https://api.chess.com/pub/player/zgorl",
-          "url": "https://www.chess.com/member/Zgorl",
-          "username": "Zgorl",
-          "score": 2571,
-          "rank": 1,
-          "country": "https://api.chess.com/pub/country/NL",
-          "title": "FM",
-          "name": "Rob Schoorl",
-          "status": "premium",
-          "avatar": "https://images.chesscomfiles.com/uploads/v1/user/2305524.5341b605.200x200o.67a89f6c51b4.jpeg",
-          "trend_score": {
-            "direction": 0,
-            "delta": 0
-          },
-          "trend_rank": {
-            "direction": 0,
-            "delta": 0
-          },
-          "flair_code": "white_bishop",
-          "win_count": 494,
-          "loss_count": 206,
-          "draw_count": 61
         }
       },
       "PlayerProfile": {
@@ -2695,49 +2687,66 @@
                   "type": "object",
                   "properties": {
                     "name": {
-                      "type": "string"
+                      "type": "string",
+                      "example": "Friendly 5+2"
                     },
                     "url": {
                       "type": "string",
                       "format": "uri",
-                      "description": "the URL of the match"
+                      "description": "the URL of the match",
+                      "example": "https://www.chess.com/club/matches/live/5833"
                     },
                     "@id": {
                       "type": "string",
-                      "format": "uri"
+                      "format": "uri",
+                      "example": "https://api.chess.com/pub/match/live/5833"
                     },
                     "start_time": {
-                      "type": "integer"
+                      "type": "integer",
+                      "example": 1579471260
+                    },
+                    "end_time": {
+                      "type": "integer",
+                      "example": 1579472487
                     },
                     "status": {
-                      "type": "string"
+                      "type": "string",
+                      "example": ""
                     },
                     "boards": {
-                      "type": "integer"
+                      "type": "integer",
+                      "example": 6
                     },
                     "settings": {
                       "type": "object",
                       "properties": {
                         "rules": {
-                          "type": "string"
+                          "type": "string",
+                          "example": "chess"
                         },
                         "time_class": {
-                          "type": "string"
+                          "type": "string",
+                          "example": "blitz"
                         },
                         "time_control": {
-                          "type": "integer"
+                          "type": "integer",
+                          "example": 300
                         },
                         "time_increment": {
-                          "type": "integer"
+                          "type": "integer",
+                          "example": 2
                         },
                         "min_team_players": {
-                          "type": "integer"
+                          "type": "integer",
+                          "example": 2
                         },
                         "min_required_games": {
-                          "type": "integer"
+                          "type": "integer",
+                          "example": 0
                         },
                         "autostart": {
-                          "type": "boolean"
+                          "type": "boolean",
+                          "example": false
                         }
                       }
                     },
@@ -2750,78 +2759,6 @@
                         "team2": {
                           "$ref": "#/components/schemas/MatchTeam"
                         }
-                      }
-                    }
-                  },
-                  "example": {
-                    "@id": "https://api.chess.com/pub/match/live/5833",
-                    "name": "Friendly 5+2",
-                    "url": "https://www.chess.com/club/matches/live/5833",
-                    "start_time": 1579471260,
-                    "end_time": 1579472487,
-                    "status": "finished",
-                    "boards": 6,
-                    "settings": {
-                      "rules": "chess",
-                      "time_class": "blitz",
-                      "time_control": 300,
-                      "time_increment": 2,
-                      "min_team_players": 2,
-                      "min_required_games": 0,
-                      "autostart": false
-                    },
-                    "teams": {
-                      "team1": {
-                        "@id": "https://api.chess.com/pub/club/the-leopards",
-                        "name": "The Leopards",
-                        "url": "https://www.chess.com/club/the-leopards",
-                        "score": 7,
-                        "result": "win",
-                        "players": [
-                          {
-                            "username": "fabian_leo",
-                            "stats": "https://api.chess.com/pub/player/fabian_leo/stats",
-                            "status": "basic",
-                            "played_as_white": "win",
-                            "played_as_black": "win",
-                            "board": "https://api.chess.com/pub/match/live/5833/2"
-                          },
-                          {
-                            "username": "guilhermekk",
-                            "stats": "https://api.chess.com/pub/player/guilhermekk/stats",
-                            "status": "premium",
-                            "played_as_white": "win",
-                            "played_as_black": "resigned",
-                            "board": "https://api.chess.com/pub/match/live/5833/4"
-                          }
-                        ],
-                        "fair_play_removals": []
-                      },
-                      "team2": {
-                        "@id": "https://api.chess.com/pub/club/not-so-pro-chess-league",
-                        "name": "Not-So PRO Chess League",
-                        "url": "https://www.chess.com/club/not-so-pro-chess-league",
-                        "score": 5,
-                        "result": "lose",
-                        "players": [
-                          {
-                            "username": "25elevin",
-                            "stats": "https://api.chess.com/pub/player/25elevin/stats",
-                            "status": "premium",
-                            "played_as_black": "timeout",
-                            "played_as_white": "timeout",
-                            "board": "https://api.chess.com/pub/match/live/5833/2"
-                          },
-                          {
-                            "username": "alexkotow",
-                            "stats": "https://api.chess.com/pub/player/alexkotow/stats",
-                            "status": "basic",
-                            "played_as_black": "resigned",
-                            "played_as_white": "resigned",
-                            "board": "https://api.chess.com/pub/match/live/5833/6"
-                          }
-                        ],
-                        "fair_play_removals": []
                       }
                     }
                   }
@@ -2875,7 +2812,14 @@
                         "<username>": {
                           "type": "number",
                           "format": "float",
-                          "description": "User score (adjuested in case of fair play recalculations)"
+                          "description": "User score (adjuested in case of fair play recalculations)",
+                          "example": 1
+                        },
+                        "<username2>": {
+                          "type": "number",
+                          "format": "float",
+                          "description": "User score (adjuested in case of fair play recalculations)",
+                          "example": 1
                         }
                       }
                     },
@@ -2886,44 +2830,61 @@
                         "properties": {
                           "url": {
                             "type": "string",
-                            "format": "uri"
+                            "format": "uri",
+                            "example": ""
                           },
                           "pgn": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "[Event \"Live Chess\"]\n[Site \"Chess.com\"]..."
                           },
                           "time_control": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "300+2"
                           },
                           "end_time": {
-                            "type": "integer"
+                            "type": "integer",
+                            "example": 1579471774
                           },
                           "rated": {
-                            "type": "boolean"
+                            "type": "boolean",
+                            "example": true
                           },
                           "fen": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "4Rk2/3Q4/2p2qp1/1r1p4/8/1P4p1/2P2PP1/6K1 b - -"
                           },
                           "time_class": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "blitz"
                           },
                           "rules": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "chess"
                           },
                           "white": {
                             "type": "object",
                             "properties": {
                               "rating": {
-                                "type": "integer"
+                                "type": "integer",
+                                "example": 1851
                               },
                               "result": {
-                                "type": "string"
+                                "type": "string",
+                                "example": "win"
                               },
                               "@id": {
                                 "type": "string",
-                                "format": "uri"
+                                "format": "uri",
+                                "example": "https://api.chess.com/pub/player/edr0nt"
                               },
                               "username": {
-                                "type": "string"
+                                "type": "string",
+                                "example": "edr0nt"
+                              },
+                              "uuid": {
+                                "type": "string",
+                                "format": "uuid",
+                                "example": "78b752de-cdb7-11e5-803c-000000000000"
                               }
                             }
                           },
@@ -2931,85 +2892,37 @@
                             "type": "object",
                             "properties": {
                               "rating": {
-                                "type": "integer"
+                                "type": "integer",
+                                "example": 1909
                               },
                               "result": {
-                                "type": "string"
+                                "type": "string",
+                                "example": "checkmated"
                               },
                               "@id": {
                                 "type": "string",
-                                "format": "uri"
+                                "format": "uri",
+                                "example": "https://api.chess.com/pub/player/insan3_7"
                               },
                               "username": {
-                                "type": "string"
+                                "type": "string",
+                                "example": "InSaN3_7"
+                              },
+                              "uuid": {
+                                "type": "string",
+                                "format": "uuid",
+                                "example": "32c57b80-a4a9-11e9-b9f7-9194ac470c80"
                               }
                             }
                           },
                           "eco": {
                             "type": "string",
-                            "format": "uri"
+                            "format": "uri",
+                            "example": "https://www.chess.com/openings/Center-Game-Accepted-Normal-Variation"
                           }
                         }
                       }
                     }
-                  },
-                  "example": {
-                    "board_scores": {
-                      "edr0nt": 1,
-                      "insan3_7": 1
-                    },
-                    "games": [
-                      {
-                        "url": "https://www.chess.com/game/live/4415534338",
-                        "pgn": "[Event \"Live Chess\"]\n[Site \"Chess.com\"]...",
-                        "time_control": "300+2",
-                        "end_time": 1579471774,
-                        "rated": true,
-                        "fen": "4Rk2/3Q4/2p2qp1/1r1p4/8/1P4p1/2P2PP1/6K1 b - -",
-                        "time_class": "blitz",
-                        "rules": "chess",
-                        "white": {
-                          "rating": 1851,
-                          "result": "win",
-                          "@id": "https://api.chess.com/pub/player/edr0nt",
-                          "username": "edr0nt",
-                          "uuid": "78b752de-cdb7-11e5-803c-000000000000"
-                        },
-                        "black": {
-                          "rating": 1909,
-                          "result": "checkmated",
-                          "@id": "https://api.chess.com/pub/player/insan3_7",
-                          "username": "InSaN3_7",
-                          "uuid": "32c57b80-a4a9-11e9-b9f7-9194ac470c80"
-                        },
-                        "eco": "https://www.chess.com/openings/Center-Game-Accepted-Normal-Variation"
-                      },
-                      {
-                        "url": "https://www.chess.com/game/live/4415556582",
-                        "pgn": "[Event \"Live Chess\"]\n[Site \"Chess.com\"]\n...",
-                        "time_control": "300+2",
-                        "end_time": 1579472276,
-                        "rated": true,
-                        "fen": "8/8/8/6Qk/7P/K7/8/8 b - -",
-                        "time_class": "blitz",
-                        "rules": "chess",
-                        "white": {
-                          "rating": 1919,
-                          "result": "win",
-                          "@id": "https://api.chess.com/pub/player/insan3_7",
-                          "username": "InSaN3_7",
-                          "uuid": "32c57b80-a4a9-11e9-b9f7-9194ac470c80"
-                        },
-                        "black": {
-                          "rating": 1844,
-                          "result": "checkmated",
-                          "@id": "https://api.chess.com/pub/player/edr0nt",
-                          "username": "edr0nt",
-                          "uuid": "78b752de-cdb7-11e5-803c-000000000000"
-                        },
-                        "eco": "https://www.chess.com/openings/Scandinavian-Defense-Mieses-Kotrc-Variation-3.Nc3-Qd8"
-                      }
-                    ]
                   }
                 }
               }
@@ -3265,49 +3178,35 @@
                         "type": "object",
                         "properties": {
                           "username": {
-                            "type": "string"
+                            "type": "string",
+                            "example": "Oleksandr_Bortnyk"
                           },
                           "avatar": {
                             "type": "string",
-                            "format": "uri"
+                            "format": "uri",
+                            "example": "https://images.chesscomfiles.com/uploads/v1/user/28168290.0998f38b.50x50o.14a485723e12.jpeg"
                           },
                           "twitch_url": {
                             "type": "string",
-                            "format": "uri"
+                            "format": "uri",
+                            "example": "https://twitch.tv/bortnykchess"
                           },
                           "url": {
                             "type": "string",
-                            "format": "uri"
+                            "format": "uri",
+                            "example": "https://www.chess.com/member/Oleksandr_Bortnyk"
                           },
                           "is_live": {
-                            "type": "boolean"
+                            "type": "boolean",
+                            "example": true
                           },
                           "is_community_streamer": {
-                            "type": "boolean"
+                            "type": "boolean",
+                            "example": false
                           }
                         }
                       }
                     }
-                  },
-                  "example": {
-                    "streamers": [
-                      {
-                        "username": "ChessTV",
-                        "avatar": "https://images.chesscomfiles.com/uploads/v1/user/12892566.fb3a2474.50x50o.8eedb8fc4b9b.png",
-                        "twitch_url": "https://twitch.tv/chess",
-                        "url": "https://www.chess.com/member/ChessTV",
-                        "is_live": true,
-                        "is_community_streamer": false
-                      },
-                      {
-                        "username": "Oleksandr_Bortnyk",
-                        "avatar": "https://images.chesscomfiles.com/uploads/v1/user/28168290.0998f38b.50x50o.14a485723e12.jpeg",
-                        "twitch_url": "https://twitch.tv/bortnykchess",
-                        "url": "https://www.chess.com/member/Oleksandr_Bortnyk",
-                        "is_live": true,
-                        "is_community_streamer": false
-                      }
-                    ]
                   }
                 }
               }
